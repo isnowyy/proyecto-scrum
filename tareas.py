@@ -76,6 +76,24 @@ def cambiarEstadoTarea():
 def guardar_tareas():
     with open("Tareas.json", "w", encoding="utf-8") as archivo:
         json.dump(tareas, archivo, indent=4, ensure_ascii=False)
+def eliminar_tarea():
+    if len(tareas) == 0:
+        print("No hay tareas registradas.")
+        return
+    
+    listar_tareas()
+    try:
+        id_tarea = int(input("Escribe el ID de la tarea a eliminar:"))
+        for tarea in tareas:
+            if tarea["id"] == id_tarea:
+                tareas.remove(tarea)
+                guardar_tareas()
+                print("Tarea eliminada correctamente.")
+                return
+    except ValueError:
+        print("Debes escribir un numero valido para el ID.")
+        return
+    
 
 
 def menuTareas():
@@ -84,7 +102,8 @@ def menuTareas():
         print("1. Crear tarea")
         print("2. Listar tareas")
         print("3. Cambiar el estado de la tarea")
-        print("4. Salir")
+        print("4. Eliminar tarea")
+        print("5. Salir")
 
         opcion = input("Selecciona una opción: ")
 
@@ -95,6 +114,8 @@ def menuTareas():
         elif opcion == "3":
             cambiarEstadoTarea()
         elif opcion == "4":
+            eliminar_tarea()
+        elif opcion == "5":
             print("Saliendo del programa...")
             break
         else:
