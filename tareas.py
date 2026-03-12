@@ -25,12 +25,25 @@ def crear_tarea():
 
     print("Tarea creada correctamente.")
 
+def listar_tareas():
+
+    #verifica si hay tareas
+    if len(tareas) == 0:
+        print("No hay tareas registradas.")
+        return
+
+    print("\nLista de tareas:")
+    for tarea in tareas:
+        estado = "✓" if tarea["completada"] else "✗"
+
+        print(f'{tarea["id"]}. {tarea["titulo"]} [{estado}]')
 
 def menuTareas():
     while True:
         print("\n--- TaskFlow CLI ---")
         print("1. Crear tarea")
-        print("2. Salir")
+        print("2. Listar tareas")
+        print("3. Salir")
 
         opcion = input("Selecciona una opción: ")
 
@@ -38,6 +51,9 @@ def menuTareas():
             crear_tarea()
 
         elif opcion == "2":
+            listar_tareas()
+
+        elif opcion == "3":
             print("Saliendo del programa...")
             break
 
